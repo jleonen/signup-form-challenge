@@ -18,25 +18,52 @@ let firstNameErr,
   invalidEmail,
   passwordErr = false;
 
-const valueCheck = function (data, i) {
-  if (data.classList.value === "firstName" && !firstNameErr) {
+const renderError = function (data, i) {
+  if (
+    data.classList.contains("firstName") &&
+    !firstNameErr
+    // !data.classList.contains("-error")
+  ) {
+    // data.classList.toggle("-error");
     let html = `<blockquote class="error${i}">First name cannot be empty</blockquote>`;
     data.insertAdjacentHTML("afterend", html);
     firstNameErr = true;
-  } else if (data.classList.value === "lastName" && !lastNameErr) {
+  } else if (
+    data.classList.contains("lastName") &&
+    !lastNameErr
+    // !data.classList.contains("-error")
+  ) {
+    // data.classList.toggle("-error");
     let html = `<blockquote class="error${i}">Last name cannot be empty</blockquote>`;
     data.insertAdjacentHTML("afterend", html);
     lastNameErr = true;
-  } else if (data.classList.value === "email" && !emailErr) {
+  } else if (
+    data.classList.contains("email") &&
+    !emailErr
+    // !data.classList.contains("-error")
+  ) {
+    // data.classList.toggle("-error");
     let html = `<blockquote class="error${i}">Email cannot be empty.</blockquote>`;
     data.insertAdjacentHTML("afterend", html);
     emailErr = true;
-  } else if (data.classList.value === "password" && !passwordErr) {
+  } else if (
+    data.classList.contains("password") &&
+    !passwordErr
+    // !data.classList.contains("-error")
+  ) {
+    // data.classList.toggle("-error");
     let html = `<blockquote class="error${i}">${data.classList.value} cannot be empty</blockquote>`;
     data.insertAdjacentHTML("afterend", html);
     passwordErr = true;
   } else {
-    console.log("still error");
+    console.log("Field is still blank");
+  }
+};
+
+const valueCheck = function (data, i) {
+  if (!data.classList.contains("-error")) {
+    data.classList.toggle("-error");
+    renderError(data, i);
   }
 };
 
@@ -50,7 +77,16 @@ const submitValues = function () {
       valueCheck(entry, i);
     } else {
       entry.style.backgroundImage = "none";
-      document.querySelector(`.error${i}`).style.display = "none";
+
+      if (!entry.nextElementSibling) {
+        console.log("Value present");
+      } else if (entry.classList.contains("-error")) {
+        entry.classList.toggle("-error");
+        document.querySelector(`.error${i}`).style.display = "none";
+
+        console.log(`Error class removed for ${entry.classList.value}.`);
+      }
+
       if (entry.classList.value === "firstName") firstNameErr = false;
       if (entry.classList.value === "lastName") lastNameErr = false;
       if (entry.classList.value === "email") emailErr = false;
