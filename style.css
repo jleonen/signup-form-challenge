@@ -1,0 +1,116 @@
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+body {
+  background-image: url("/images/bg-intro-desktop.png");
+  background-color: hsl(0, 100%, 74%);
+}
+
+.flex-input {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* background-color: white; */
+  width: 500px;
+}
+
+.ad-banner {
+  background-color: hsl(248, 32%, 49%);
+  color: white;
+  align-self: center;
+  display: inline-block;
+  padding-right: 82px;
+  padding-left: 77px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  /* padding-top: 15px;
+  border-top-width: 100px;
+  display: inline-block;
+  padding-bottom: 15px;
+  padding-left: 64px;
+  padding-right: 0px;
+  width: 265px;
+  margin-right: 124px;
+  margin-bottom: 10px; */
+}
+
+.left-content {
+  color: white;
+  flex-basis: 340px;
+}
+
+button {
+  background-color: hsl(154, 59%, 51%);
+  color: white;
+  height: 41px;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: hsl(160, 54%, 73%);
+}
+
+.main-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 800px;
+  gap: 60px;
+}
+
+.left-content {
+  flex-basis: 250px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background-color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  width: 400px;
+  border-radius: 10px;
+}
+
+input {
+  height: 35px;
+  border: 2px solid rgba(128, 128, 128, 0.315);
+  border-radius: 4px;
+}
+
+h2 {
+  font-size: 41px;
+}
+
+.span-red {
+  color: hsl(0, 100%, 74%);
+}
+
+blockquote {
+  font-size: 15px;
+  color: hsl(0, 100%, 74%);
+}
+
+/* .first-error,
+.last-error,
+.email-error,
+.password-error {
+  
+} */
+
+.error0,
+.error1,
+.error2,
+.error3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  align-self: flex-end;
+}
