@@ -18,6 +18,53 @@ let firstNameErr,
   invalidEmail,
   passwordErr = false;
 
+const checkEmail = function (entry, i) {
+  if (
+    entry.classList.contains("email") &&
+    entry.value.includes("@") &&
+    // invalidEmail &&
+    // (entry.classList.contains("email") &&
+    entry.value.includes(".com") //&&
+    // !invalidEmail)
+  ) {
+    ///////
+    if (entry.nextElementSibling) {
+      document.querySelector(`.error${i}-2`).style.display = "none";
+      invalidEmail = false;
+    } else {
+      invalidEmail = false;
+    }
+
+    ///////
+  } else if (
+    (entry.value.includes(".com") && !invalidEmail) ||
+    (entry.value.includes("@") && !invalidEmail)
+  ) {
+    // if (entry.nextElementSibling) {
+    let html = `<blockquote class="error${i}-2">Looks like an invalid email.</blockquote>`;
+    entry.insertAdjacentHTML("afterend", html);
+    entry.style.backgroundImage = "url('images/icon-error.svg')";
+    entry.style.backgroundRepeat = "no-repeat";
+    entry.style.backgroundPosition = "right";
+    invalidEmail = true;
+    // document.querySelector(`.error${i}-2`).style.display = "none";
+
+    // entry.style.backgroundImage = "none";
+  } else if (
+    (!entry.value.includes(".com") && !invalidEmail) ||
+    (!entry.value.includes("@") && !invalidEmail)
+  ) {
+    let html = `<blockquote class="error${i}-2">Looks like an invalid email.</blockquote>`;
+    entry.insertAdjacentHTML("afterend", html);
+    entry.style.backgroundImage = "url('images/icon-error.svg')";
+    entry.style.backgroundRepeat = "no-repeat";
+    entry.style.backgroundPosition = "right";
+    invalidEmail = true;
+  } else {
+    console.log("no sibling element");
+  }
+};
+
 const renderError = function (data, i) {
   if (
     data.classList.contains("firstName") &&
@@ -52,7 +99,7 @@ const renderError = function (data, i) {
     // !data.classList.contains("-error")
   ) {
     // data.classList.toggle("-error");
-    let html = `<blockquote class="error${i}">${data.classList.value} cannot be empty</blockquote>`;
+    let html = `<blockquote class="error${i}">Password cannot be empty</blockquote>`;
     data.insertAdjacentHTML("afterend", html);
     passwordErr = true;
   } else {
@@ -73,6 +120,7 @@ const submitValues = function () {
       entry.setAttribute("placeholder", "");
       entry.style.backgroundImage = "url('images/icon-error.svg')";
       entry.style.backgroundRepeat = "no-repeat";
+      entry.style.backgroundPosition = "right";
 
       valueCheck(entry, i);
     } else {
@@ -83,9 +131,10 @@ const submitValues = function () {
       } else if (entry.classList.contains("-error")) {
         entry.classList.toggle("-error");
         document.querySelector(`.error${i}`).style.display = "none";
-
         console.log(`Error class removed for ${entry.classList.value}.`);
       }
+      // !invalidEmail ? checkEmail(entry, i) : console.log("Valid email");
+      checkEmail(entry, i);
 
       if (entry.classList.value === "firstName") firstNameErr = false;
       if (entry.classList.value === "lastName") lastNameErr = false;
