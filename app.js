@@ -3,75 +3,29 @@ const firstName = document.querySelector(".firstName");
 const lastName = document.querySelector(".lastName");
 const email = document.querySelector(".email");
 const password = document.querySelector(".password");
-const emailValid = document.querySelector(".error2-2");
+const emailInvalid = document.querySelector(".invalidEmail");
 const formArray = [firstName, lastName, email, password];
 
+//Initial conditions
 let firstNameErr,
   lastNameErr,
   emailErr,
   invalidEmail,
   passwordErr = false;
 
-emailValid.style.display = "none";
-// const invalidEmailMsg = function (entry, i) {
-//   let html = `<blockquote class="error${i}-2">Looks like this is not an email.</blockquote>`;
-//   entry.insertAdjacentHTML("afterend", html);
-//   entry.style.backgroundImage = "url('images/icon-error.svg')";
-//   entry.style.backgroundRepeat = "no-repeat";
-//   entry.style.backgroundPosition = "right";
-// };
+emailInvalid.style.display = "none";
 
-const invalidEmailMsg = function () {
-  // let html = `<blockquote class="error2-2">Looks like this is not an email.</blockquote>`;
-  // email.insertAdjacentHTML("afterend", html);
-  email.style.backgroundImage = "url('images/icon-error.svg')";
-  email.style.backgroundRepeat = "no-repeat";
-  email.style.backgroundPosition = "right";
-  emailValid.style.display = "block";
-};
-
-// const checkEmail = function (entry, i) {
-//   if (
-//     entry.classList.contains("email") &&
-//     entry.value.includes("@") &&
-//     entry.value.includes(".com")
-//   ) {
-//     invalidEmail = false;
-//     !invalidEmail
-//       ? console.log("Valid email")
-//       : (document.querySelector(`.error${i}-2`).style.display = "none");
-//   } else if (
-//     (entry.value.includes(".com") && !invalidEmail) ||
-//     (entry.value.includes("@") && !invalidEmail)
-//   ) {
-//     invalidEmailMsg(entry, i);
-//     invalidEmail = true;
-//   } else if (
-//     (entry.classList.contains("email") &&
-//       !entry.value.includes(".com") &&
-//       !invalidEmail) ||
-//     (!entry.value.includes("@") && !invalidEmail)
-//   ) {
-//     invalidEmailMsg(entry, i);
-//     invalidEmail = true;
-//   } else {
-//     console.log("Invalid email");
-//   }
-// };
-
+//check email to see if it is a valid email or not
 const checkEmail = function () {
   if (email.value.includes("@") && email.value.includes(".com")) {
     if (!invalidEmail) {
       console.log("Valid email");
     } else {
-      emailValid.style.display = "none";
+      emailInvalid.style.display = "none";
       invalidEmail = false;
     }
   } else if (email.value === "") {
     document.querySelector(`.error2-2`).style.display = "none";
-    // let html = `<blockquote class="error2">Email cannot be empty.</blockquote>`;
-    // email.insertAdjacentHTML("afterend", html);
-    // emailErr = true;
   } else if (
     (email.value.includes(".com") && !invalidEmail) ||
     (email.value.includes("@") && !invalidEmail)
@@ -85,10 +39,19 @@ const checkEmail = function () {
     invalidEmailMsg();
     invalidEmail = true;
   } else {
-    console.log("Invalid email");
+    email.style.backgroundImage = "url('images/icon-error.svg')";
   }
 };
 
+//display invalid email message
+const invalidEmailMsg = function () {
+  email.style.backgroundImage = "url('images/icon-error.svg')";
+  email.style.backgroundRepeat = "no-repeat";
+  email.style.backgroundPosition = "right";
+  emailInvalid.style.display = "block";
+};
+
+//Display error message for blank fields
 const renderError = function (data, i) {
   if (
     data.classList.contains("firstName") &&
@@ -106,7 +69,7 @@ const renderError = function (data, i) {
     data.insertAdjacentHTML("afterend", html);
     emailErr = true;
     invalidEmail = false;
-    document.querySelector(`.error2-2`).style.display = "none";
+    emailInvalid.style.display = "none";
   } else if (data.classList.contains("password") && !passwordErr) {
     let html = `<blockquote class="error${i}">Password cannot be empty</blockquote>`;
     data.insertAdjacentHTML("afterend", html);
@@ -116,21 +79,7 @@ const renderError = function (data, i) {
   }
 };
 
-// const renderError = function (data) {
-//     if(data.)
-//     let html1 = `<blockquote class="error0">First name cannot be empty</blockquote>`;
-//     data.insertAdjacentHTML("afterend", html1);
-
-//     let html2 = `<blockquote class="error1">Last name cannot be empty</blockquote>`;
-//     data.insertAdjacentHTML("afterend", html2);
-
-//     let html3 = `<blockquote class="error2">Email cannot be empty.</blockquote>`;
-//     data.insertAdjacentHTML("afterend", html3);
-
-//     let html4 = `<blockquote class="error3">Password cannot be empty</blockquote>`;
-//     data.insertAdjacentHTML("afterend", html4);
-// };
-
+//Check if there are any inputs in each section of form
 const valueCheck = function (data, i) {
   if (!data.classList.contains("-error")) {
     data.classList.toggle("-error");
@@ -138,6 +87,7 @@ const valueCheck = function (data, i) {
   }
 };
 
+//Submit form
 const submitValues = function () {
   formArray.forEach(function (entry, i) {
     if (!entry.value) {

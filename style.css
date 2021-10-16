@@ -109,8 +109,8 @@ blockquote {
 .error0,
 .error1,
 .error2,
-.error2-2,
-.error3 {
+.error3,
+.invalidEmail {
   margin-top: 0px;
   margin-bottom: 0px;
   align-self: flex-end;
